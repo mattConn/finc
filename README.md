@@ -1,2 +1,2 @@
 # include-file
-Small program to include files in other files via an "include" directive.
+Small program to insert the contents of files into other files via an "include" directive.
