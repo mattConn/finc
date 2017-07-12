@@ -1,0 +1,6 @@
+This text should be inserted verbatim.
+Line two; this text should be inserted as-is, with newlines and all.
+This will be the third line.
+
+The above was a carriage return.
+The true last line will be here.
