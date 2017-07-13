@@ -1,6 +1,0 @@
-Foobar baz
-test 123 1
-##INCLUDE filetobeincluded
-test 2 123
-foobar
-

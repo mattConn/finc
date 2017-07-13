@@ -1,10 +1,12 @@
-include-file: include-file.c include-file.h
-	gcc -Wall include-file.c -o include-file;
+BINCHECK = if [ ! -d bin ]; then mkdir bin; fi; 
+
+bin/include-file: src/main.c src/directive_detection.h src/scanner.h
+	$(BINCHECK) gcc -Wall src/main.c -o bin/include-file;
 
 check:
-	./include-file test/test.txt
+	bin/include-file test/poem.txt
 
-all: include-file check 
+all: bin/include-file check 
 
 clean:
-	rm include-file
+	rm -r bin 
