@@ -1,3 +1,5 @@
+##INCLUDE title-and-author.txt
+
 Two roads diverged in a yellow wood,
 And sorry I could not travel both
 And be one traveler, long I stood
@@ -13,5 +15,3 @@ Yet knowing how way leads on to way,
 I doubted if I should ever come back.
 
 ##INCLUDE stanza-4.txt
-
-##INCLUDE author.txt

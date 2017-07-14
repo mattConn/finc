@@ -1,3 +1,7 @@
+// Scan file specified in cli argument
+
+#include "directive_detection.h"
+
 void scan_file(char *filename)
 {
 	int char_count = 0;
@@ -13,7 +17,12 @@ void scan_file(char *filename)
 
 		if(directive_detection(scanned_file_char))
 			directive_count++;	
-		//printf("%d\n",directive_detection(scanned_file_char));
-		//char_count++;
+	}
+	
+	// if no direcitves, terminate program
+	if(directive_count == 0)
+	{
+		printf("No directives for inclusion (%s <filename>) found.\n", directive);
+		exit(0);
 	}
 }

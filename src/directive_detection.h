@@ -1,3 +1,4 @@
+// Search for and count directives in current file
 int directive_detection_i = 0;
 bool directive_detection(char s)
 {
