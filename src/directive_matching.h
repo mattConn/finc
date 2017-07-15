@@ -2,7 +2,8 @@
 
 int directive_detection_i = 0;
 char directive[] = {"##INCLUDE "};
-int directive_count = 0;
+int current_pass_directive_count = 0;
+int total_directive_count = 0;
 
 bool directive_detection(char s)
 {
