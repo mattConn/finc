@@ -3,6 +3,7 @@
 #include "directive_matching.h"
 
 FILE *scanned_file;
+FILE *file_to_include;
 
 char output_text[250000];
 char name_of_file_to_include[300];
@@ -20,6 +21,8 @@ void reset_current_line_char()
 		current_line_char[i] = 0;
 	}
 }
+
+char file_to_include_char;
 
 void scan_file(char *filename)
 {
@@ -48,9 +51,25 @@ void scan_file(char *filename)
 					{
 						//printf("%s\n", current_line_char);
 						current_pass_directive_count++;
+
+						// copy filename from current line to name_of_file_to_include
+						int filename_length = sizeof(current_line_char)/sizeof(current_line_char[0]) - sizeof(directive)/sizeof(directive[0]);
+						strncpy(name_of_file_to_include, &current_line_char[sizeof(directive)/sizeof(directive[0])-1],filename_length);
 						
+						//TODO: open file to include
+						/*
+						file_to_include = fopen(name_of_file_to_include, "r");
+						
+						while(file_to_include_char != EOF)
+						{
+							file_to_include_char = fgetc(file_to_include);
+							char_count++;
+							output_text[char_count] = file_to_include_char;	
+						}
+						*/
 					}	
 				}
+				printf("File to include: %s\n", name_of_file_to_include);
 			} else {
 				strcat(output_text, current_line_char);
 			}
