@@ -2,6 +2,10 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+FILE *scanned_file;
+char directive[] = {"\n##INCLUDE "};
+int directive_count = 0;	
+
 #include "scanner.h"
 
 int main(int argc, char *argv[])

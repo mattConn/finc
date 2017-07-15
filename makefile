@@ -1,15 +1,19 @@
 BINCHECK = if [ ! -d bin ]; then mkdir bin; fi; 
+BIN = 'bin/include-file'
 
-bin/include-file: src/main.c src/directive_detection.h src/scanner.h
-	$(BINCHECK) gcc -Wall src/main.c -o bin/include-file;
+$(BIN): src/main.c src/directive_matching.h src/scanner.h
+	$(BINCHECK) gcc -Wall src/main.c -o $(BIN);
 
 check:
-	bin/include-file test/several_directives_file_depth_1/poem.txt
+	$(BIN) test/several_directives_file_depth_1/main.txt
 
 check-no-directives:
-	bin/include-file test/no_directives.txt
+	$(BIN) test/no_directives.txt
 
-all: bin/include-file check 
+check-mangled-directives:
+	$(BIN) test/mangled_directives.txt
+
+all: $(BIN) check check-no-directives check-mangled-directives
 
 clean:
 	rm -r bin 

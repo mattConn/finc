@@ -1,3 +1,5 @@
+EXPECTED RESULT FROM SCANNING: 3 directives found
+
 ##INCLUDE title-and-author.txt
 
 Two roads diverged in a yellow wood,
