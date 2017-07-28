@@ -1,8 +1,10 @@
 BINCHECK = if [ ! -d bin ]; then mkdir bin; fi; 
 BIN = 'bin/include-file'
+COMPILER = 'clang'
+FLAGS = '-Weverything'
 
 $(BIN): src/main.c src/directive_matching.h src/scanner.h
-	$(BINCHECK) gcc -Wall src/main.c -o $(BIN);
+	$(BINCHECK) $(COMPILER) $(FLAGS) src/main.c -o $(BIN);
 
 check:
 	$(BIN) test/several_directives/main.txt
