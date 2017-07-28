@@ -3,12 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "file-attributes.h"
-#include "get-char-count.h"
+#include "../file-attributes.h"
+#include "../get-char-count.h"
 
 int main(int argc, char *argv[])
 {
-
-	return 0;
-
+	printf("%d\n", get_char_count(argv[1]));
 }
