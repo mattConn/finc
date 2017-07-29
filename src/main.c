@@ -8,7 +8,6 @@
 
 int main(int argc, char *argv[])
 {
-
 	//char foo[get_char_count(argv[1])];
 
 	return 0;
