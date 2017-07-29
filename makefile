@@ -29,10 +29,7 @@ tests: $(CHARCOUNT_TESTER)
 check-get-char-count:
 	$(CHARCOUNT_TESTER) test/lorem-ipsum.txt
 
-check-get-char-count_with-setter:
-	$(CHARCOUNT_TESTER) test/lorem-ipsum.txt -s
-
-check-tests: check-get-char-count check-get-char-count_with-setter
+check-tests: check-get-char-count
 
 #===================
 # project-wide tasks

@@ -1,4 +1,4 @@
-int get_char_count(char *filename, char set_flag)
+int get_char_count(char *filename)
 {
 	int char_count = 0;
 	
@@ -18,10 +18,7 @@ int get_char_count(char *filename, char set_flag)
     rewind(file.input);
 	fclose(file.input);
     file.input_char = '\0';
-
-	//do not set file.char_count if no flag
-	if(set_flag != 's') 
-    	file.char_count = 0;
+    file.char_count = 0;
 
     return char_count;
 }
