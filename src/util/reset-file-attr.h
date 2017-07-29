@@ -4,5 +4,5 @@ void reset_file_attr()
     rewind(file.input);
     fclose(file.input);
     file.input_char = '\0';
-	file.char_count = 0;
+    file.char_count = 0;
 }
