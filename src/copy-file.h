@@ -1,4 +1,4 @@
-int get_char_count(char *filename)
+void copy_file(char *filename, char *copy_str)
 {
 	int char_count = 0;
 	
@@ -9,12 +9,9 @@ int get_char_count(char *filename)
     while(file.input_char != EOF)
 	{
 		file.input_char = fgetc(file.input);
-        file.char_count++;
+		copy_str[char_count] = file.input_char;
+        char_count++;
 	};
-
-	char_count = file.char_count;
-
+	
 	reset_file_attr();
-
-    return char_count;
 }
