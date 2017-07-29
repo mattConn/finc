@@ -3,7 +3,7 @@ typedef struct {
     FILE *input;
     int char_count;
     char input_char;
-	char facsimile;
+	char copy[];
 }file_attr;
 
 file_attr file;

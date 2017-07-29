@@ -4,7 +4,7 @@ BIN = 'bin/include-file'
 COMPILER = 'clang'
 FLAGS = '-Weverything'
 
-CHARCOUNT_TEST = 'bin/test/get-char-count'
+CHARCOUNT_TESTER = 'bin/test/get-char-count'
 
 # main binary
 $(BIN): src/* 
@@ -17,19 +17,22 @@ check:
 # build tests
 #============
 
-$(CHARCOUNT_TEST): src/file-attributes.h src/get-char-count.h src/test/get-char-count.c
-	$(TEST_BINCHECK) $(COMPILER) $(FLAGS) src/test/get-char-count.c -o $(CHARCOUNT_TEST)
+$(CHARCOUNT_TESTER): src/file-attributes.h src/get-char-count.h src/test/get-char-count.c
+	$(TEST_BINCHECK) $(COMPILER) $(FLAGS) src/test/get-char-count.c -o $(CHARCOUNT_TESTER)
 
-tests: $(CHARCOUNT_TEST)
+tests: $(CHARCOUNT_TESTER)
 
 #==========
 # run tests
 #==========
 
 check-get-char-count:
-	$(CHARCOUNT_TEST) test/lorem-ipsum.txt
+	$(CHARCOUNT_TESTER) test/lorem-ipsum.txt
 
-check-tests: check-get-char-count 
+check-get-char-count_with-setter:
+	$(CHARCOUNT_TESTER) test/lorem-ipsum.txt -s
+
+check-tests: check-get-char-count check-get-char-count_with-setter
 
 #===================
 # project-wide tasks
