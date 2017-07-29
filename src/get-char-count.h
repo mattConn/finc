@@ -1,3 +1,5 @@
+#include "util/reset-file-attr.h"
+
 int get_char_count(char *filename)
 {
 	int char_count = 0;
@@ -14,11 +16,7 @@ int get_char_count(char *filename)
 
 	char_count = file.char_count;
 
-    //reset input file attributes 
-    rewind(file.input);
-	fclose(file.input);
-    file.input_char = '\0';
-    file.char_count = 0;
+	reset_file_attr();
 
     return char_count;
 }
