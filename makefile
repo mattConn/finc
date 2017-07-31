@@ -1,6 +1,6 @@
 BINCHECK = if [ ! -d bin ]; then mkdir bin; fi;
 TEST_BINCHECK = if [ ! -d bin/test ]; then mkdir -p bin/test; fi;
-BIN = 'bin/incf'
+BIN = 'bin/finc'
 COMPILER = 'clang'
 FLAGS = '-Weverything'
 
