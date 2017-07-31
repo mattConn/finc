@@ -1,5 +1,3 @@
-EXPECTED RESULT FROM SCANNING: 0 directives found
-
 The Road Not Taken by Robert Frost
 
 Two roads diverged in a yellow wood,
