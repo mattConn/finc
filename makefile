@@ -19,10 +19,10 @@ check:
 # build tests
 #============
 
-$(CHARCOUNT_TESTER): src/file-attributes.h src/util/* src/get-char-count.h src/test/get-char-count.c
+$(CHARCOUNT_TESTER): src/file-attributes.h src/get-char-count.h src/test/get-char-count.c
 	$(TEST_BINCHECK) $(COMPILER) $(FLAGS) src/test/get-char-count.c -o $(CHARCOUNT_TESTER)
 
-$(COPYFILE_TESTER): src/file-attributes.h src/util/* src/copy-file.h src/test/copy-file.c
+$(COPYFILE_TESTER): src/file-attributes.h src/copy-file.h src/test/copy-file.c
 	$(TEST_BINCHECK) $(COMPILER) $(FLAGS) src/test/copy-file.c -o $(COPYFILE_TESTER)
 
 tests: $(CHARCOUNT_TESTER) $(COPYFILE_TESTER)
