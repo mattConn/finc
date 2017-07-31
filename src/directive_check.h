@@ -5,11 +5,11 @@ bool direc_check(char *filename, char *direc_str)
     //open file for scanning
     file.input = fopen(filename, "r");
 
-    //get char count of file
-    while(matched != sizeof(direc_str)/sizeof(direc_str[0]) || file.input_char != EOF)
+	//check for consecutive matching characters in file against directive
+    while( file.input_char != EOF && matched < sizeof(direc_str)/sizeof(direc_str[0]) )
     {
         file.input_char = fgetc(file.input);
-		if(file.input == direc_string[matched])
+		if(file.input_char == direc_str[matched])
 			matched++;
 		else
 			matched = 0;
