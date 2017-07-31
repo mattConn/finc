@@ -3,10 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../file-attributes.h"
-#include "../util/reset-file-attr.h"
-#include "../get-char-count.h"
-#include "../copy-file.h"
+#include "../file_attributes.h"
+#include "../get_char_count.h"
+#include "../copy_file.h"
 
 int main(int argc, char *argv[])
 {

@@ -1,12 +1,13 @@
 BINCHECK = if [ ! -d bin ]; then mkdir bin; fi;
 TEST_BINCHECK = if [ ! -d bin/test ]; then mkdir -p bin/test; fi;
-BIN = 'bin/include-file'
+BIN = 'bin/finc'
 COMPILER = 'clang'
 FLAGS = '-Weverything'
 
-TEST_TARGET = 'test/lorem-ipsum.txt'
-CHARCOUNT_TESTER = 'bin/test/get-char-count'
-COPYFILE_TESTER = 'bin/test/copy-file'
+TEST_TARGET = 'test/several_directives/main.txt'
+CHARCOUNT_TESTER = 'bin/test/get_char_count'
+COPYFILE_TESTER = 'bin/test/copy_file'
+DCHECK_TESTER = 'bin/test/directive_check'
 
 # main binary
 $(BIN): src/* 
@@ -19,25 +20,31 @@ check:
 # build tests
 #============
 
-$(CHARCOUNT_TESTER): src/file-attributes.h src/util/* src/get-char-count.h src/test/get-char-count.c
-	$(TEST_BINCHECK) $(COMPILER) $(FLAGS) src/test/get-char-count.c -o $(CHARCOUNT_TESTER)
+$(CHARCOUNT_TESTER): src/file_attributes.h src/get_char_count.h src/test/get_char_count.c
+	$(TEST_BINCHECK) $(COMPILER) $(FLAGS) src/test/get_char_count.c -o $(CHARCOUNT_TESTER)
 
-$(COPYFILE_TESTER): src/file-attributes.h src/util/* src/copy-file.h src/test/copy-file.c
-	$(TEST_BINCHECK) $(COMPILER) $(FLAGS) src/test/copy-file.c -o $(COPYFILE_TESTER)
+$(COPYFILE_TESTER): src/file_attributes.h src/copy_file.h src/test/copy_file.c
+	$(TEST_BINCHECK) $(COMPILER) $(FLAGS) src/test/copy_file.c -o $(COPYFILE_TESTER)
 
-tests: $(CHARCOUNT_TESTER) $(COPYFILE_TESTER)
+$(DCHECK_TESTER): src/file_attributes.h src/test/directive_check.c
+	$(TEST_BINCHECK) $(COMPILER) $(FLAGS) src/test/directive_check.c -o $(DCHECK_TESTER)
+
+tests: $(CHARCOUNT_TESTER) $(COPYFILE_TESTER) $(DCHECK_TESTER)
 
 #==========
 # run tests
 #==========
 
-check-get-char-count:
+checkgetchar_count:
 	$(CHARCOUNT_TESTER) $(TEST_TARGET)
 
-check-copy-file:
+checkcopy_file:
 	$(COPYFILE_TESTER) $(TEST_TARGET)
 
-check-tests: check-get-char-count check-copy-file
+checkdirective_check:
+	$(DCHECK_TESTER) $(TEST_TARGET)
+
+checktests: checkget_char_count checkcopy_file checkdirective_check
 
 #===================
 # project-wide tasks
