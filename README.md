@@ -1,2 +1,2 @@
-# include-file
+# incf
 Include files in development; alternative to SSI (server-side includes).
