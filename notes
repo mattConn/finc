@@ -1,0 +1,31 @@
+create initial output:
+open file
+copy file chars to nested array
+	size array for lines, for characters.
+		on newline:
+			find largest line char count via comparison
+			add to line count
+		nested array: arr[linecount][max-char-count]
+	
+	after sizing, push to array
+		index counter
+		push to array, increment index char
+
+
+check for directives in nested array
+
+catalog directives locations:
+	find directives, count directives, size directives location array
+	find directives again, add indices to location array
+
+create nested directive file array
+	size this array: is size of directive count
+	nested arrays are sized: largest file
+	open each file, push characters to respective nested array
+	
+size final output array:
+	add size of current output to int.
+	open each file by directive location, count characters and add to size int 
+
+Loop over array, strcat line to final
+	if directive, strcat that item, increment index
