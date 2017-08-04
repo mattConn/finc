@@ -7,6 +7,7 @@ FLAGS = '-Weverything'
 TEST_TARGET = 'test/several_directives/main.txt'
 CHARCOUNT_TESTER = 'bin/test/get_char_count'
 COPYFILE_TESTER = 'bin/test/copy_file'
+DLOCATE_TESTER = 'bin/test/directive_locate'
 DCHECK_TESTER = 'bin/test/directive_check'
 LONGESTLINE_TESTER = 'bin/test/get_longest_line_length'
 LINECOUNT_TESTER = 'bin/test/get_line_count'
@@ -31,13 +32,16 @@ $(COPYFILE_TESTER): src/file_attributes.h src/copy_file.h src/test/copy_file.c
 $(DCHECK_TESTER): src/file_attributes.h src/test/directive_check.c
 	$(TEST_BINCHECK) $(COMPILER) $(FLAGS) src/test/directive_check.c -o $(DCHECK_TESTER)
 
+$(DLOCATE_TESTER): src/test/directive_locate.c src/directive_locate.h src/util/*
+	$(TEST_BINCHECK) $(COMPILER) $(FLAGS) src/test/directive_locate.c -o $(DLOCATE_TESTER)
+
 $(LONGESTLINE_TESTER): src/file_attributes.h src/util/get_longest_line_length.h src/test/get_longest_line_length.c
 	$(TEST_BINCHECK) $(COMPILER) $(FLAGS) src/test/get_longest_line_length.c -o $(LONGESTLINE_TESTER)
 
 $(LINECOUNT_TESTER): src/file_attributes.h src/util/get_line_count.h src/test/get_line_count.c
 	$(TEST_BINCHECK) $(COMPILER) $(FLAGS) src/test/get_line_count.c -o $(LINECOUNT_TESTER)
 
-tests: $(CHARCOUNT_TESTER) $(COPYFILE_TESTER) $(DCHECK_TESTER) $(LONGESTLINE_TESTER) $(LINECOUNT_TESTER)
+tests: $(CHARCOUNT_TESTER) $(COPYFILE_TESTER) $(DLOCATE_TESTER) $(DCHECK_TESTER) $(LONGESTLINE_TESTER) $(LINECOUNT_TESTER)
 
 #==========
 # run tests
@@ -58,7 +62,10 @@ checklongest_line:
 checkline_count:
 	$(LINECOUNT_TESTER) $(TEST_TARGET)
 
-checktests: checkget_char_count checkcopy_file checkdirective_check checklongest_line checkline_count
+checkdirective_locate:
+	$(DLOCATE_TESTER) $(TEST_TARGET)
+
+checktests: checkget_char_count checkcopy_file checkdirective_check checkdirective_locate checklongest_line checkline_count
 
 #===================
 # project-wide tasks
