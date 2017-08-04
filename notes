@@ -20,6 +20,8 @@ catalog directives locations:
 	find directives, count directives, size directives location array
 	find directives again, add indices to location array
 
+======================= ^ DONE ^ ==========================================
+
 create nested directive file array
 	size this array: is size of directive count
 	nested arrays are sized: largest file
