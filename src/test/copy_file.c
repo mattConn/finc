@@ -11,10 +11,10 @@
 
 int main(int argc, char *argv[])
 {
-	char test_str[] = {copy_file( argv[1], get_line_count(argv[1]), get_longest_line_length(argv[1]) )};
-	//copy_file( argv[1], get_line_count(argv[1]), get_longest_line_length(argv[1]) );
 
-	printf("Test string:\n%s\n",test_str);
+	char test_str[ get_line_count(argv[1]) ][ get_longest_line_length(argv[1]) ];
+	
+	copy_file(argv[1], test_str);
 
 	return 0;
 }

@@ -1,9 +1,7 @@
-char copy_file( char *filename, int input_line_count, int input_line_length )
+void copy_file( char *filename, char copy_str)
 {
-	char copy_str[input_line_count][input_line_length];
-
-	int char_count = 0;
 	int line_count = 0;
+	int char_count = 0;
 	
     //open file for scanning
     file.input = fopen(filename, "r");
@@ -18,13 +16,13 @@ char copy_file( char *filename, int input_line_count, int input_line_length )
 		
 		if(file.input_char == '\n')
 		{
+			copy_str[line_count][char_count] = '\0';
+			//printf("%s", copy_str[line_count]);
 			line_count++;
 			char_count = 0;
 		}
 	};
 	
 	reset_file_attr();
-
-	return copy_str;
 
 }
