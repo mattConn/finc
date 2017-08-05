@@ -23,7 +23,9 @@ int main(int argc, char *argv[])
 //	for(int i = 0; i < sizeof(test_str)/sizeof(test_str[0]); i++)
 //		printf("%s", test_str[i]);
 
-	direc_locate(get_longest_line_length(argv[1]),test_str, directive);
+	printf( "%d\n", direc_arr_size( get_longest_line_length(argv[1]),test_str, directive) );
+
+	//direc_locate(get_longest_line_length(argv[1]),test_str, directive);
 
 	
 

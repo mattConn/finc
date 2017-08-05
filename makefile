@@ -8,6 +8,7 @@ TEST_TARGET = 'test/several_directives/main.txt'
 CHARCOUNT_TESTER = 'bin/test/get_char_count'
 COPYFILE_TESTER = 'bin/test/copy_file'
 DLOCATE_TESTER = 'bin/test/directive_locate'
+DARRSIZE_TESTER = 'bin/test/directive_arr_size'
 DCHECK_TESTER = 'bin/test/directive_check'
 LONGESTLINE_TESTER = 'bin/test/get_longest_line_length'
 LINECOUNT_TESTER = 'bin/test/get_line_count'
@@ -35,13 +36,16 @@ $(DCHECK_TESTER): src/file_attributes.h src/test/directive_check.c
 $(DLOCATE_TESTER): src/test/directive_locate.c src/directive_locate.h src/util/*
 	$(TEST_BINCHECK) $(COMPILER) $(FLAGS) src/test/directive_locate.c -o $(DLOCATE_TESTER)
 
+$(DARRSIZE_TESTER): src/test/directive_arr_size.c src/util/directive_arr_size.h
+	$(TEST_BINCHECK) $(COMPILER) $(FLAGS) src/test/directive_arr_size.c -o $(DARRSIZE_TESTER)
+
 $(LONGESTLINE_TESTER): src/file_attributes.h src/util/get_longest_line_length.h src/test/get_longest_line_length.c
 	$(TEST_BINCHECK) $(COMPILER) $(FLAGS) src/test/get_longest_line_length.c -o $(LONGESTLINE_TESTER)
 
 $(LINECOUNT_TESTER): src/file_attributes.h src/util/get_line_count.h src/test/get_line_count.c
 	$(TEST_BINCHECK) $(COMPILER) $(FLAGS) src/test/get_line_count.c -o $(LINECOUNT_TESTER)
 
-tests: $(CHARCOUNT_TESTER) $(COPYFILE_TESTER) $(DLOCATE_TESTER) $(DCHECK_TESTER) $(LONGESTLINE_TESTER) $(LINECOUNT_TESTER)
+tests: $(CHARCOUNT_TESTER) $(COPYFILE_TESTER) $(DLOCATE_TESTER) $(DCHECK_TESTER) $(DARRSIZE_TESTER) $(LONGESTLINE_TESTER) $(LINECOUNT_TESTER)
 
 #==========
 # run tests
@@ -56,6 +60,9 @@ checkcopy_file:
 checkdirective_check:
 	$(DCHECK_TESTER) $(TEST_TARGET)
 
+checkdirective_arr_size:
+	$(DARRSIZE_TESTER) $(TEST_TARGET)
+
 checklongest_line:
 	$(LONGESTLINE_TESTER) $(TEST_TARGET)
 
@@ -65,7 +72,7 @@ checkline_count:
 checkdirective_locate:
 	$(DLOCATE_TESTER) $(TEST_TARGET)
 
-checktests: checkget_char_count checkcopy_file checkdirective_check checkdirective_locate checklongest_line checkline_count
+checktests: checkget_char_count checkcopy_file checkdirective_check checkdirective_arr_size checkdirective_locate checklongest_line checkline_count
 
 #===================
 # project-wide tasks

@@ -1,40 +1,18 @@
 // find num of directives (if any),
 // then list their locations (indices)
 
-int direc_locate(int arr_size, char file_str[][arr_size], char *direc_str)
+int direc_locate(int arr_size, char file_str[][arr_size], char *direc_str, int *locations)
 {
 
-	int matched = 0;
-
-	int locations_length = 0;
-
-	//check for consecutive matching characters in file against directive
-	for(int i = 0; i < strlen(file_str); i++)
-    {
-		for(int j = 0; j < sizeof(direc_str)/sizeof(direc_str[0]); j++)
-		{
-			if(file_str[i][j] == direc_str[j])
-				matched++;
-			else
-				matched = 0;
-
-			if( matched == sizeof(direc_str)/sizeof(direc_str[0]) )
-			{
-				locations_length++;
-				matched = 0;
-			}
-		}
-	
-    };
-
-	if( locations_length < 1)
+	if( direc_arr_size(arr_size, file_str, direc_str) < 1)
 	{
 		printf("No directives present.\n");
 		return 1;
 	}
-
+	
+	int matched = 0;
 	//list directive locations
-	int locations[locations_length];
+	//int locations[direc_arr_size(arr_size, file_str, direc_str)];
 	int locations_index = 0;
 
 	for(int i = 0; i < strlen(file_str); i++)
@@ -56,8 +34,8 @@ int direc_locate(int arr_size, char file_str[][arr_size], char *direc_str)
 	
     };
 	
-	for(int i = 0; i < sizeof(locations)/sizeof(locations[0]); i++)	
-		printf("%d\n", locations[i]);	
+	//for(int j = 0; j < sizeof(locations)/sizeof(locations[0]); j++)
+	//	printf("%d\n", locations[j]);	
 
-	return locations;
+	//return locations;
 }
