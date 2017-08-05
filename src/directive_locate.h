@@ -11,8 +11,7 @@ int direc_locate(int arr_size, char file_str[][arr_size], char *direc_str, int *
 	}
 	
 	int matched = 0;
-	//list directive locations
-	//int locations[direc_arr_size(arr_size, file_str, direc_str)];
+
 	int locations_index = 0;
 
 	for(int i = 0; i < strlen(file_str); i++)
@@ -33,9 +32,5 @@ int direc_locate(int arr_size, char file_str[][arr_size], char *direc_str, int *
 		}
 	
     };
-	
-	//for(int j = 0; j < sizeof(locations)/sizeof(locations[0]); j++)
-	//	printf("%d\n", locations[j]);	
 
-	//return locations;
 }

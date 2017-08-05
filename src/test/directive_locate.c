@@ -13,6 +13,7 @@
 
 int main(int argc, char *argv[])
 {
+//int direc_arr_size(int file_arr_size, char file_str[][file_arr_size], char *direc_str)
 
 	char directive[] = {"##INCLUDE"};
 
@@ -20,12 +21,14 @@ int main(int argc, char *argv[])
 	
 	copy_file(argv[1], get_longest_line_length(argv[1]), test_str);
 	
-//	for(int i = 0; i < sizeof(test_str)/sizeof(test_str[0]); i++)
-//		printf("%s", test_str[i]);
+	int locations_size = direc_arr_size( get_longest_line_length(argv[1]), test_str, directive );
 
-	direc_locate(get_longest_line_length(argv[1]),test_str, directive);
+	int locations[ locations_size ];
 
-	
+	direc_locate(get_longest_line_length(argv[1]),test_str, directive, locations);
+
+	for(int i = 0; i < locations_size; i++)
+		printf("%d\n", locations[i]);
 
 	return 0;
 }
