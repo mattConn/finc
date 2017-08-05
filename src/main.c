@@ -26,16 +26,14 @@ int main(int argc, char *argv[])
 
 	// copy file to string
 	copy_file(argv[1], get_longest_line_length(argv[1]), file_copy);
-
-	// output for debugging
-	//printf("Size of string: %d\n", sizeof(file_copy)/sizeof(file_copy[0]));
-
-	//for(int i = 0; i < sizeof(file_copy)/sizeof(file_copy[0]); i++)
-	//	printf("> %s",file_copy[i]);
 	
+	// get amount of directives in file string
 	int locations_len = direc_arr_size( get_longest_line_length(argv[1]), file_copy, directive );
 
+	// declare array of directive indices
 	int location_arr[locations_len];
+	
+	// assign directive indices to respective array
 	direc_locate( get_longest_line_length(argv[1]), file_copy, directive, location_arr );
 
 	printf("Number of dir. locations: %d\n", locations_len);
