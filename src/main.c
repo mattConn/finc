@@ -4,43 +4,65 @@
 #include <string.h>
 
 #include "file_attributes.h"
+#include "util/directive_trim.h"
+#include "directive_locate.h"
+#include "util/directive_arr_size.h"
 #include "util/get_line_count.h"
 #include "util/get_longest_line_length.h"
-#include "util/directive_arr_size.h"
-#include "directive_check.h"
-#include "directive_locate.h"
-#include "get_char_count.h"
 #include "copy_file.h"
 
 int main(int argc, char *argv[])
 {
 	char directive[] = {"##INCLUDE"};
-	char file_copy[ get_line_count(argv[1]) ][ get_longest_line_length(argv[1]) ];
 
-	// check if directives present in file
-	if( !direc_check(argv[1], directive) )
-	{
-		printf("No directives found.\n");
-		return 1;
-	}
+	//copy file to string
+    char file_str[ get_line_count(argv[1]) ][ get_longest_line_length(argv[1]) ];
+    copy_file(argv[1], get_longest_line_length(argv[1]), file_str);
 
-	// copy file to string
-	copy_file(argv[1], get_longest_line_length(argv[1]), file_copy);
+    // get amount of directives in file string
+    int locations_len = direc_arr_size( get_longest_line_length(argv[1]), file_str, directive );
+
+    // declare array of directive indices
+    int location_arr[locations_len];
+
+    // assign directive indices to respective array
+    direc_locate( get_longest_line_length(argv[1]), file_str, directive, location_arr );
 	
-	// get amount of directives in file string
-	int locations_len = direc_arr_size( get_longest_line_length(argv[1]), file_copy, directive );
+	// array for trimmed found directives
+	char trimmed_direc[ get_longest_line_length(argv[1]) ];
 
-	// declare array of directive indices
-	int location_arr[locations_len];
+	// find longest file for sizing 2d included file array
 	
-	// assign directive indices to respective array
-	direc_locate( get_longest_line_length(argv[1]), file_copy, directive, location_arr );
+	chdir("test/several_directives");
+	system("pwd");
 
-	printf("Number of dir. locations: %d\n", locations_len);
+    int longest_char_count = 0;
+    for(int i = 0; i < sizeof(location_arr)/sizeof(location_arr[0]); i++)
+    {
+    	int char_count = 0;
 
-	for(int i = 0; i < locations_len; i++)
-		printf("%d\n", location_arr[i]);
+		// TODO: arr of file names
+		// name of file to open, trimmed for directive
+        direc_trim(file_str[ location_arr[i] ], directive, strlen(file_str[ location_arr[i] ]) - strlen(directive), trimmed_direc);
 
-	
+        //open file for scanning
+        file.input = fopen(trimmed_direc, "r");
+		printf("%s\n", trimmed_direc);
+
+        //get char count of file
+        while(file.input_char != EOF)
+        {
+            file.input_char = fgetc(file.input);
+            char_count++;
+        };
+
+        reset_file_attr();
+
+        if(char_count > longest_char_count)
+            longest_char_count = char_count;
+
+        printf("%d\n", longest_char_count);
+    }
+
 	return 0;
 }
