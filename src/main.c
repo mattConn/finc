@@ -10,6 +10,7 @@
 #include "util/get_line_count.h"
 #include "util/get_longest_line_length.h"
 #include "copy_file.h"
+#include "copy_file_1d.h"
 
 int main(int argc, char *argv[])
 {
@@ -32,9 +33,7 @@ int main(int argc, char *argv[])
 	char trimmed_direc[ get_longest_line_length(argv[1]) ];
 
 	// find longest file for sizing 2d included file array
-	
 	chdir("test/several_directives");
-	system("pwd");
 
     int longest_char_count = 0;
     for(int i = 0; i < sizeof(location_arr)/sizeof(location_arr[0]); i++)
@@ -47,7 +46,6 @@ int main(int argc, char *argv[])
 
         //open file for scanning
         file.input = fopen(trimmed_direc, "r");
-		printf("%s\n", trimmed_direc);
 
         //get char count of file
         while(file.input_char != EOF)
@@ -61,8 +59,27 @@ int main(int argc, char *argv[])
         if(char_count > longest_char_count)
             longest_char_count = char_count;
 
+		/*
         printf("%d\n", longest_char_count);
+		*/
     }
+
+	// content of files to be included
+	char included_files[locations_len][longest_char_count];
+
+	char foo[longest_char_count];
+	// copy included files to relevant array
+    for(int i = 0; i < locations_len; i++)
+    {
+		// name of file to open, trimmed for directive
+        direc_trim(file_str[ location_arr[i] ], directive, strlen(file_str[ location_arr[i] ]) - strlen(directive), trimmed_direc);
+
+    	//copy_file_1d(trimmed_direc, longest_char_count, &included_files[i]);
+    	copy_file_1d(trimmed_direc, longest_char_count, &included_files[i]);
+    }
+		
+    for(int i = 0; i < locations_len; i++)
+		printf("%s", included_files[i]);
 
 	return 0;
 }
