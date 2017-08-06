@@ -10,8 +10,13 @@ void copy_file_1d( char *filename, int arr_size, char copy_str[arr_size])
     while(file.input_char != EOF)
 	{
 		file.input_char = fgetc(file.input);
-		
-		copy_str[char_count] = file.input_char;
+
+		if(file.input_char == '\n')
+		{
+			copy_str[char_count] = '=';
+		} else {	
+			copy_str[char_count] = file.input_char;
+		}
         char_count++;
 	};
 

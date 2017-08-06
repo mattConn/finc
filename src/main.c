@@ -58,31 +58,23 @@ int main(int argc, char *argv[])
 
         if(char_count > longest_char_count)
             longest_char_count = char_count;
-
-		/*
-        printf("%d\n", longest_char_count);
-		*/
     }
 
-	// content of files to be included
-	char included_files[locations_len][longest_char_count];
-
-	// copy content included files to relevant array
-    for(int i = 0; i < locations_len; i++)
-    {
-		// name of file to open, trimmed for directive
-        direc_trim(file_str[ location_arr[i] ], directive, strlen(file_str[ location_arr[i] ]) - strlen(directive), trimmed_direc);
-
-    	//copy_file_1d(trimmed_direc, longest_char_count, &included_files[i]);
-    	copy_file_1d(trimmed_direc, longest_char_count, &included_files[i]);
-    }
-
+	// send original file and included file contents to stdout
 	int location_index = 0;
     for(int i = 0; i < sizeof(file_str)/sizeof(file_str[0]); i++)
 	{
 		if(i == location_arr[location_index])
 		{
-			printf("%s", included_files[location_index]);
+			// name of file to open, trimmed for directive
+        	direc_trim(file_str[ location_arr[location_index] ], directive, strlen(file_str[ location_arr[location_index] ]) - strlen(directive), trimmed_direc);
+
+   			char included_str[ get_line_count(trimmed_direc) ][ get_longest_line_length(trimmed_direc) ];
+   			copy_file(trimmed_direc, get_longest_line_length(trimmed_direc), included_str);
+
+    		for(int k = 0; k < sizeof(included_str)/sizeof(included_str[0]); k++)
+				printf("%s\n", included_str[k]);
+
 			location_index++;
 		} else {
 			printf("%s\n", file_str[i]);
