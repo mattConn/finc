@@ -10,15 +10,17 @@ void copy_file( char *filename, int arr_size, char copy_str[][arr_size])
     while(file.input_char != EOF)
 	{
 		file.input_char = fgetc(file.input);
-
-		copy_str[line_count][char_count] = file.input_char;
-        char_count++;
 		
 		if(file.input_char == '\n')
 		{
 			copy_str[line_count][char_count] = '\0';
-			line_count++;
 			char_count = 0;
+
+			line_count++;
+
+		} else {
+			copy_str[line_count][char_count] = file.input_char;
+        	char_count++;
 		}
 	};
 	

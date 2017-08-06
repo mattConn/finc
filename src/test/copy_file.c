@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 	copy_file(argv[1], get_longest_line_length(argv[1]), test_str);
 	
 	for(int i = 0; i < sizeof(test_str)/sizeof(test_str[0]); i++)
-		printf("%s", test_str[i]);
+		printf("%s\n", test_str[i]);
 
 	return 0;
 }
