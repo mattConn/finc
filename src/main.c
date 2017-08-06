@@ -14,16 +14,29 @@
 
 int main(int argc, char *argv[])
 {
+	// trim filename from arg path for later chdir
+	char *arg = argv[1];
+	char trimmed_arg[strlen(arg)];	
+	strcpy(trimmed_arg, arg);	
+
+	int arg_len = strlen(trimmed_arg);;
+	while(trimmed_arg[arg_len] != '/')
+	{
+		trimmed_arg[arg_len] = '\0';	
+		arg_len--;
+	}
+
+	// define directive string
 	char directive[] = {"##INCLUDE"};
 
-	//copy file to string
+	//copy file to file string
     char file_str[ get_line_count(argv[1]) ][ get_longest_line_length(argv[1]) ];
     copy_file(argv[1], get_longest_line_length(argv[1]), file_str);
 
     // get amount of directives in file string
     int locations_len = direc_arr_size( get_longest_line_length(argv[1]), file_str, directive );
 
-    // declare array of directive indices
+    // declare array of directive indices for locating directives in file string
     int location_arr[locations_len];
 
     // assign directive indices to respective array
@@ -32,15 +45,15 @@ int main(int argc, char *argv[])
 	// array for trimmed found directives
 	char trimmed_direc[ get_longest_line_length(argv[1]) ];
 
-	// find longest file for sizing 2d included file array
-	chdir("test/several_directives");
+	// change directory to directory of main file (via trimmed argv)
+	chdir(trimmed_arg);
 
+	// get largest file (via greatest char count)
     int longest_char_count = 0;
     for(int i = 0; i < sizeof(location_arr)/sizeof(location_arr[0]); i++)
     {
     	int char_count = 0;
 
-		// TODO: arr of file names
 		// name of file to open, trimmed for directive
         direc_trim(file_str[ location_arr[i] ], directive, strlen(file_str[ location_arr[i] ]) - strlen(directive), trimmed_direc);
 
@@ -64,19 +77,23 @@ int main(int argc, char *argv[])
 	int location_index = 0;
     for(int i = 0; i < sizeof(file_str)/sizeof(file_str[0]); i++)
 	{
-		if(i == location_arr[location_index])
+		if(i == location_arr[location_index]) //if index is listed in location arr as directive
 		{
 			// name of file to open, trimmed for directive
         	direc_trim(file_str[ location_arr[location_index] ], directive, strlen(file_str[ location_arr[location_index] ]) - strlen(directive), trimmed_direc);
 
+			// copy listed file to string
    			char included_str[ get_line_count(trimmed_direc) ][ get_longest_line_length(trimmed_direc) ];
    			copy_file(trimmed_direc, get_longest_line_length(trimmed_direc), included_str);
 
+			// send string to stdout
     		for(int k = 0; k < sizeof(included_str)/sizeof(included_str[0]); k++)
 				printf("%s\n", included_str[k]);
-
+			
+			// move to next location
 			location_index++;
 		} else {
+			// print main file's string
 			printf("%s\n", file_str[i]);
 		}
 	}
