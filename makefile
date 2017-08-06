@@ -2,7 +2,7 @@ BINCHECK = if [ ! -d bin ]; then mkdir bin; fi;
 TEST_BINCHECK = if [ ! -d bin/test ]; then mkdir -p bin/test; fi;
 BIN = 'bin/finc'
 COMPILER = 'clang'
-FLAGS = '-Weverything'
+FLAGS = '-w'
 
 TEST_TARGET = 'test/several_directives/main.txt'
 CHARCOUNT_TESTER = 'bin/test/get_char_count'

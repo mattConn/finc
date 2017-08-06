@@ -5,6 +5,7 @@
 
 #include "file_attributes.h"
 #include "util/directive_trim.h"
+#include "directive_check.h"
 #include "directive_locate.h"
 #include "util/directive_arr_size.h"
 #include "util/get_line_count.h"
@@ -14,20 +15,48 @@
 
 int main(int argc, char *argv[])
 {
-	// trim filename from arg path for later chdir
-	char *arg = argv[1];
-	char trimmed_arg[strlen(arg)];	
-	strcpy(trimmed_arg, arg);	
 
-	int arg_len = strlen(trimmed_arg);;
-	while(trimmed_arg[arg_len] != '/')
+	// check for file argument
+	if(argc < 2)
 	{
-		trimmed_arg[arg_len] = '\0';	
-		arg_len--;
+		printf("Missing file argument.\n");
+		return 1;
+	}
+	
+	// check for valid file argument
+	if( fopen(argv[1], "r") == NULL  )
+	{
+		printf("Invalid file argument.\n");
+		return 1;
 	}
 
 	// define directive string
 	char directive[] = {"##INCLUDE"};
+	
+	// copy arg to string
+	char *arg = argv[1];
+	char arg_str[strlen(arg)];	
+	strcpy(arg_str, arg);	
+
+	// check if any directives present in file, end program if none
+	if( !direc_check(argv[1], directive) )
+	{
+		printf("No directives present in \"%s\".\n", arg_str);
+		return 1;
+	}
+
+	// trim filename from arg path for later chdir
+	int arg_len = strlen(arg_str);
+	while(arg_str[arg_len] != '/')
+	{
+		arg_str[arg_len] = '\0';	
+		arg_len--;
+	}
+
+	//
+	// Arguments are valid and directives are present,
+	// program proceeds.
+	//	
 
 	//copy file to file string
     char file_str[ get_line_count(argv[1]) ][ get_longest_line_length(argv[1]) ];
@@ -46,7 +75,7 @@ int main(int argc, char *argv[])
 	char trimmed_direc[ get_longest_line_length(argv[1]) ];
 
 	// change directory to directory of main file (via trimmed argv)
-	chdir(trimmed_arg);
+	chdir(arg_str);
 
 	// get largest file (via greatest char count)
     int longest_char_count = 0;
