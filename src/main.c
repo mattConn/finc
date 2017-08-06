@@ -67,8 +67,7 @@ int main(int argc, char *argv[])
 	// content of files to be included
 	char included_files[locations_len][longest_char_count];
 
-	char foo[longest_char_count];
-	// copy included files to relevant array
+	// copy content included files to relevant array
     for(int i = 0; i < locations_len; i++)
     {
 		// name of file to open, trimmed for directive
@@ -77,9 +76,19 @@ int main(int argc, char *argv[])
     	//copy_file_1d(trimmed_direc, longest_char_count, &included_files[i]);
     	copy_file_1d(trimmed_direc, longest_char_count, &included_files[i]);
     }
-		
-    for(int i = 0; i < locations_len; i++)
-		printf("%s", included_files[i]);
+
+	int location_index = 0;
+    for(int i = 0; i < sizeof(file_str)/sizeof(file_str[0]); i++)
+	{
+		if(i == location_arr[location_index])
+		{
+			printf("%s", included_files[location_index]);
+			location_index++;
+		} else {
+			printf("%s\n", file_str[i]);
+		}
+	}
+	
 
 	return 0;
 }
