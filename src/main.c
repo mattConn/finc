@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 	}
 
 	// define directive string
-	char directive[] = {"##INCLUDE"};
+	char directive[] = {"##include"};
 	
 	// copy arg to string
 	char *arg = argv[1];

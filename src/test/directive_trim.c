@@ -13,7 +13,7 @@
 
 int main(int argc, char *argv[])
 {
-	char directive[] = {"##INCLUDE"};
+	char directive[] = {"##include"};
 
 	//copy file to string
     char file_str[ get_line_count(argv[1]) ][ get_longest_line_length(argv[1]) ];

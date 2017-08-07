@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[])
 {
-	char directive[] = {"##INCLUDE"};	
+	char directive[] = {"##include"};	
 
 	if( direc_check(argv[1], directive ) )
 		printf("Directive(s) found.\n");

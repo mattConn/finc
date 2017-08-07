@@ -1,10 +1,10 @@
 EXPECTED RESULT FROM SCANNING: 1 directive found
 
 A genuine directive:
-##INCLUDE file 1
+##include file 1
 Very similar to a real directive:
-###INCLUDE file
+###include file
 ##INCLUHJKLDE file
 Other mangled directives:
- ##INCLUDE file
-##INCLUDEE file 2
+ ##include file
+##includee file 2

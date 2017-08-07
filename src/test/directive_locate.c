@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 {
 //int direc_arr_size(int file_arr_size, char file_str[][file_arr_size], char *direc_str)
 
-	char directive[] = {"##INCLUDE"};
+	char directive[] = {"##include"};
 
 	char test_str[ get_line_count(argv[1]) ][ get_longest_line_length(argv[1]) ];
 	
