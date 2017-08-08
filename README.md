@@ -3,6 +3,7 @@ Small program written in C to include files in development; alternative to SSI (
 
 ## Building
 Run `make` to compile with clang. Binary will be `bin/finc`.  
+Run `make check` to see how finc handles the files in `test/several_directives` as an example of functionality.
 To use a different compiler and set flags, edit the appropriate lines in makefile.
 
 ## Usage
