@@ -3,8 +3,6 @@ bool arg_validation(int arg_count, char *arg_vector){
 	
 	bool valid = true;
 
-	char help_notice[] = {"Try \"finc -h\" for usage/information."};
-
     // check for file argument
     if(arg_count < 2)
     {
@@ -15,7 +13,7 @@ bool arg_validation(int arg_count, char *arg_vector){
 
     if( strncmp(arg_vector, "-h", 2) == 0 )
     {
-        printf("<finc usage>\n");
+        printf("%s\n",help_message);
 		valid = false;
 		return valid;
     }

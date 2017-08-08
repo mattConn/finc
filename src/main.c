@@ -4,6 +4,8 @@
 #include <string.h>
 
 #include "file_attributes.h"
+#include "user_help_strings.h"
+
 #include "argument_validation.h"
 #include "util/directive_trim.h"
 #include "directive_check.h"
