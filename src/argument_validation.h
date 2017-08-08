@@ -13,6 +13,13 @@ bool arg_validation(int arg_count, char *arg_vector){
 		return valid;
     }
 
+    if( strncmp(arg_vector, "-h", 2) == 0 )
+    {
+        printf("<finc usage>\n");
+		valid = false;
+		return valid;
+    }
+
     // check for valid file argument
     if( fopen(arg_vector, "r") == NULL  )
     {
