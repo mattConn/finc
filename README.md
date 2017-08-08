@@ -1,6 +1,10 @@
 # finc (File INClude)
 Small program written in C to include files in development; alternative to SSI (server-side includes).
 
+## Building
+Run `make` to compile with clang. Binary will be `bin/finc`.  
+To use a different compiler and set flags, edit the appropriate lines in makefile.
+
 ## Usage
 Usage: `finc [FILE]`
 Include files in `[FILE]` through inclusion directives written in `[FILE]`.
@@ -38,6 +42,3 @@ finc can also only process directives nested one level deep; includes within inc
 - Processing of directives nested deeper than one level on a single run
 - Writing to file without stdout redirect
 - Verbose mode (possible without reliance on stdout)
-
-## Development
-See `DEVELOPMENT.md`.
