@@ -15,7 +15,7 @@ Example directive:
 Note that the inclusion directive should be written at the start of a new line.
 Also note that quotation marks aren't needed around the name of the file to be included.
 
-finc is licensed under GPL-3.0. <https://www.gnu.org/licenses/gpl-3.0.en.html>
+finc is licensed under GPL-3.0. <https://www.gnu.org/licenses/gpl-3.0.en.html>  
 finc homepage: <http://git.mattconn.io/finc.git/>
 
 ## Limitations
