@@ -17,7 +17,8 @@
 int main(int argc, char *argv[])
 {
 	// check for valid argument
-	arg_validation(argc, argv[1]);
+	if( !arg_validation(argc, argv[1]) )
+		return 1;
 
 	// define directive string
 	char directive[] = {"##include"};

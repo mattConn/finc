@@ -1,18 +1,25 @@
 // argument validation for use in main function
-void arg_validation(int arg_count, char *arg_vector){
+bool arg_validation(int arg_count, char *arg_vector){
+	
+	bool valid = true;
+
 	char help_message[] = {"Try \"finc -h\" for usage/information."};
 
     // check for file argument
     if(arg_count < 2)
     {
         printf("Missing file argument.\n%s\n", help_message);
-		exit(1);
+		valid = false;
+		return valid;
     }
 
     // check for valid file argument
     if( fopen(arg_vector, "r") == NULL  )
     {
         printf("Invalid file argument.\n%s\n", help_message);
-		exit(1);
+		valid = false;
+		return valid;
     }
+
+	return valid;
 }
