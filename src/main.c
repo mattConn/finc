@@ -4,6 +4,9 @@
 #include <string.h>
 
 #include "file_attributes.h"
+#include "user_help_strings.h"
+
+#include "argument_validation.h"
 #include "util/directive_trim.h"
 #include "directive_check.h"
 #include "directive_locate.h"
@@ -15,20 +18,9 @@
 
 int main(int argc, char *argv[])
 {
-
-	// check for file argument
-	if(argc < 2)
-	{
-		printf("Missing file argument.\n");
+	// check for valid argument
+	if( !arg_validation(argc, argv[1]) )
 		return 1;
-	}
-	
-	// check for valid file argument
-	if( fopen(argv[1], "r") == NULL  )
-	{
-		printf("Invalid file argument.\n");
-		return 1;
-	}
 
 	// define directive string
 	char directive[] = {"##include"};
