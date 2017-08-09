@@ -7,8 +7,8 @@ Run `make check` to see how finc handles the files in `test/several_directives` 
 To use a different compiler and set flags, edit the appropriate lines in makefile.
 
 ## Usage
-Usage: `finc [FILE]`
-Include files in `[FILE]` through inclusion directives written in `[FILE]`.
+Usage: `finc [FILE]`  
+Include files in `[FILE]` through inclusion directives written in `[FILE]`.  
 The final result will be sent to stdout. Redirect this output to another file to save your results.
 
 Example usage:
