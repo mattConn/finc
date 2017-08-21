@@ -1,124 +1,66 @@
 #include <stdio.h>
+#include <iostream>
+#include <fstream>
 #include <stdbool.h>
 #include <stdlib.h>
-#include <string.h>
+#include <unistd.h>
+#include <string>
+#include <vector>
 
-#include "file_attributes.h"
-#include "user_help_strings.h"
-
-#include "argument_validation.h"
-#include "util/directive_trim.h"
-#include "directive_check.h"
-#include "directive_locate.h"
-#include "util/directive_arr_size.h"
-#include "util/get_line_count.h"
-#include "util/get_longest_line_length.h"
 #include "copy_file.h"
-#include "copy_file_1d.h"
 
 int main(int argc, char *argv[])
 {
-	// check for valid argument
-	if( !arg_validation(argc, argv[1]) )
-		return 1;
 
 	// define directive string
-	char directive[] = {"##include"};
+	std::string directive = "##include", file_str, target_file, include_file_contents;
 	
-	// copy arg to string
-	char *arg = argv[1];
-	char arg_str[strlen(arg)];	
-	strcpy(arg_str, arg);	
-
-	// check if any directives present in file, end program if none
-	if( !direc_check(argv[1], directive) )
-	{
-		printf("No directives present in \"%s\".\n", arg_str);
-		return 1;
-	}
-
-	// trim filename from arg path for later chdir
-	int arg_len = strlen(arg_str);
-	while(arg_str[arg_len] != '/')
-	{
-		arg_str[arg_len] = '\0';	
-		arg_len--;
-	}
-
-	//
-	// Arguments are valid and directives are present,
-	// program proceeds.
-	//	
-
-	//copy file to file string
-    char file_str[ get_line_count(argv[1]) ][ get_longest_line_length(argv[1]) ];
-    copy_file(argv[1], get_longest_line_length(argv[1]), file_str);
-
-    // get amount of directives in file string
-    int locations_len = direc_arr_size( get_longest_line_length(argv[1]), file_str, directive );
-
-    // declare array of directive indices for locating directives in file string
-    int location_arr[locations_len];
-
-    // assign directive indices to respective array
-    direc_locate( get_longest_line_length(argv[1]), file_str, directive, location_arr );
+	file_str = copy_file(argv[1]);
 	
-	// array for trimmed found directives
-	char trimmed_direc[ get_longest_line_length(argv[1]) ];
-
-	// change directory to directory of main file (via trimmed argv)
-	chdir(arg_str);
-
-	// get largest file (via greatest char count)
-    int longest_char_count = 0;
-    for(int i = 0; i < sizeof(location_arr)/sizeof(location_arr[0]); i++)
-    {
-    	int char_count = 0;
-
-		// name of file to open, trimmed for directive
-        direc_trim(file_str[ location_arr[i] ], directive, strlen(file_str[ location_arr[i] ]) - strlen(directive), trimmed_direc);
-
-        //open file for scanning
-        file.input = fopen(trimmed_direc, "r");
-
-        //get char count of file
-        while(file.input_char != EOF)
-        {
-            file.input_char = fgetc(file.input);
-            char_count++;
-        };
-
-        reset_file_attr();
-
-        if(char_count > longest_char_count)
-            longest_char_count = char_count;
-    }
-
-	// send original file and included file contents to stdout
-	int location_index = 0;
-    for(int i = 0; i < sizeof(file_str)/sizeof(file_str[0]); i++)
+	chdir("test/several_directives");
+	std::string matched;
+	for(int i = 0; i < file_str.size(); i++)
 	{
-		if(i == location_arr[location_index]) //if index is listed in location arr as directive
+		if(file_str[i] == '#' && file_str[i+1] == '#' && file_str[i+2] == 'i')
 		{
-			// name of file to open, trimmed for directive
-        	direc_trim(file_str[ location_arr[location_index] ], directive, strlen(file_str[ location_arr[location_index] ]) - strlen(directive), trimmed_direc);
+			int j = i;
+			while(file_str[j] != '\n' && file_str[j] != ' ')
+			{
+				matched.push_back(file_str[j]);
+				j++;
+			}
+			if(matched == directive)
+			{
+				matched.clear();
+				i += directive.size() + 1;
+				while(file_str[i] != '\n')
+				{
+					target_file.push_back(file_str[i]);	
+					i++;
+				}
 
-			// copy listed file to string
-   			char included_str[ get_line_count(trimmed_direc) ][ get_longest_line_length(trimmed_direc) ];
-   			copy_file(trimmed_direc, get_longest_line_length(trimmed_direc), included_str);
+				std::ifstream include_file;
+				include_file.open(target_file.c_str());
 
-			// send string to stdout
-    		for(int k = 0; k < sizeof(included_str)/sizeof(included_str[0]); k++)
-				printf("%s\n", included_str[k]);
-			
-			// move to next location
-			location_index++;
+				if(include_file.fail())
+					std::cout << "FILE FAILURE\n";
+
+				while(include_file.good())
+				{
+					//std::cout << (char)include_file.get();
+					include_file_contents.push_back( (char)include_file.get() );
+				}
+				include_file_contents.back() = '\0';
+				std::cout << include_file_contents;
+
+				include_file_contents.clear();
+
+				target_file.clear();
+			}
 		} else {
-			// print main file's string
-			printf("%s\n", file_str[i]);
+			printf("%c", file_str[i]);
 		}
 	}
-	
 
 	return 0;
 }
