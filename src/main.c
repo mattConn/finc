@@ -13,11 +13,20 @@ int main(int argc, char *argv[])
 {
 
 	// define directive string
-	std::string directive = "##include", file_str, target_file, include_file_contents;
+	std::string directive = "##include", file_str, target_file, include_file_contents, arg_str;
 	
 	file_str = copy_file(argv[1]);
-	
-	chdir("test/several_directives");
+
+	// trim filename from arg path for chdir
+	arg_str = argv[1];
+	int i = arg_str.size();
+	while(arg_str[i] != '/')
+	{
+		arg_str[i] = '\0';	
+		i--;
+	}
+	chdir(arg_str.c_str());
+
 	std::string matched;
 	for(int i = 0; i < file_str.size(); i++)
 	{
