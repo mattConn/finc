@@ -16,6 +16,6 @@ std::string copy_file( char *filename )
 		file_str.push_back(input_char);
 	};
 
-	file_str.back() = '\0';
+	file_str[ file_str.size()-2 ] = '\0';
 	return file_str;
 }

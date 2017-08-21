@@ -43,17 +43,11 @@ int main(int argc, char *argv[])
 				include_file.open(target_file.c_str());
 
 				if(include_file.fail())
+				{	
 					std::cout << "FILE FAILURE\n";
-
-				while(include_file.good())
-				{
-					//std::cout << (char)include_file.get();
-					include_file_contents.push_back( (char)include_file.get() );
+					return 1;
 				}
-				include_file_contents.back() = '\0';
-				std::cout << include_file_contents;
-
-				include_file_contents.clear();
+				std::cout << include_file.rdbuf();
 
 				target_file.clear();
 			}
