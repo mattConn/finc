@@ -1,5 +1,5 @@
 # finc (File INClude)
-Simple file-includer utility.
+File-including utility.
 
 ## Building
 Run `make` to compile with g++. Binary will be `bin/finc`.  
