@@ -5,63 +5,85 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string>
+#include <string.h>
 #include <vector>
 
 #include "copy_file.h"
+#include "user_help_strings.h"
+#include "argument_validation.h"
 
 int main(int argc, char *argv[])
 {
 
-	// define directive string
-	std::string directive = "##include", file_str, target_file, include_file_contents, arg_str;
+	std::string directive = "##include";
+	std::string file_str, file_dir, target_file, include_file_contents;
 	
+	if( !arg_validation(argc, argv[1]) )
+		return 1;
+
+	// copy file to string
 	file_str = copy_file(argv[1]);
 
 	// trim filename from arg path for chdir
-	arg_str = argv[1];
-	int i = arg_str.size();
-	while(arg_str[i] != '/')
+	file_dir = argv[1];
+	int i = file_dir.size();
+	while(file_dir[i] != '/')
 	{
-		arg_str[i] = '\0';	
+		file_dir[i] = '\0';	
 		i--;
 	}
-	chdir(arg_str.c_str());
+	// cd to directory of file
+	chdir( file_dir.c_str() );
 
+	// find directives, then open and print listed files
 	std::string matched;
-	for(int i = 0; i < file_str.size(); i++)
+	for(int i = 0; i < file_str.size()-1; i++)
 	{
+		// if possible directive
 		if(file_str[i] == '#' && file_str[i+1] == '#' && file_str[i+2] == 'i')
 		{
+			// confirm directive
 			int j = i;
 			while(file_str[j] != '\n' && file_str[j] != ' ')
 			{
 				matched.push_back(file_str[j]);
 				j++;
 			}
+
+			// if actual directive
 			if(matched == directive)
 			{
 				matched.clear();
 				i += directive.size() + 1;
+	
+				// get file name listed by directive
 				while(file_str[i] != '\n')
 				{
 					target_file.push_back(file_str[i]);	
 					i++;
 				}
 
+				// open listed file
 				std::ifstream include_file;
 				include_file.open(target_file.c_str());
 
+				// if unable to open, throw error
 				if(include_file.fail())
-				{	
-					std::cout << "FILE FAILURE\n";
-					return 1;
-				}
+					std::cout << "**ERROR** Failed to open " << file_dir << target_file << std::endl;
+
+				// print included file
 				std::cout << include_file.rdbuf();
 
+				// close file, clear target file
+				include_file.close();
 				target_file.clear();
+			} else {
+				// false positive, proceed with scanning file_str
+				matched.clear();
 			}
 		} else {
-			printf("%c", file_str[i]);
+			// print main file
+			std::cout << file_str[i];
 		}
 	}
 

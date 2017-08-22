@@ -6,14 +6,14 @@ bool arg_validation(int arg_count, char *arg_vector){
     // check for file argument
     if(arg_count < 2)
     {
-        printf("Missing file argument.\n%s\n", help_notice);
+        std::cout << "Missing file argument.\n" << help_notice << std::endl;
 		valid = false;
 		return valid;
     }
 
-    if( strncmp(arg_vector, "-h", 2) == 0 )
+    if( strcmp(arg_vector, "-h") == 0 )
     {
-        printf("%s\n",help_message);
+        std::cout << help_message << std::endl;
 		valid = false;
 		return valid;
     }
@@ -21,7 +21,7 @@ bool arg_validation(int arg_count, char *arg_vector){
     // check for valid file argument
     if( fopen(arg_vector, "r") == NULL  )
     {
-        printf("Invalid file argument.\n%s\n", help_notice);
+        std::cout << "Invalid file argument.\n" <<  help_notice << std::endl;
 		valid = false;
 		return valid;
     }
