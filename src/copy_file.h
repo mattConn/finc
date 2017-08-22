@@ -1,29 +1,21 @@
-void copy_file( char *filename, int arr_size, char copy_str[][arr_size])
+//copy file to 1d array
+std::string copy_file( char *filename )
 {
-	int line_count = 0;
-	int char_count = 0;
-	
     //open file for scanning
-    file.input = fopen(filename, "r");
+	FILE *input;
+    input = fopen(filename, "r");
+	std::string file_str;
+
+	char input_char;
 
     //get char count of file
-    while(file.input_char != EOF)
+    while(input_char != EOF)
 	{
-		file.input_char = fgetc(file.input);
-		
-		if(file.input_char == '\n')
-		{
-			copy_str[line_count][char_count] = '\0';
-			char_count = 0;
+		input_char = fgetc(input);
 
-			line_count++;
-
-		} else {
-			copy_str[line_count][char_count] = file.input_char;
-        	char_count++;
-		}
+		file_str.push_back(input_char);
 	};
-	
-	reset_file_attr();
 
+	//file_str[ file_str.size()-2 ] = '\0';
+	return file_str;
 }
