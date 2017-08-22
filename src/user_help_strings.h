@@ -8,7 +8,7 @@ Example usage:\n\
 finc src/index.html > dist/index.html\n\
 \n\
 Example directive:\n\
-##include head.html\n\
+##include includes/head.html\n\
 \n\
 Note that quotation marks aren't needed around the name of the file to be included.\n\
 \n\
