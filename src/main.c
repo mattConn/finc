@@ -26,14 +26,16 @@ int main(int argc, char *argv[])
 
 	// trim filename from arg path for chdir
 	file_dir = argv[1];
-	int i = file_dir.size();
-	while(file_dir[i] != '/')
+	int i = file_dir.size()-1;
+	while(file_dir[i] != '/' && i >= 0)
 	{
 		file_dir[i] = '\0';	
 		i--;
 	}
-	// cd to directory of file
-	chdir( file_dir.c_str() );
+	
+	// cd to directory of file if needed
+	if(file_dir.size() > 0)
+		chdir( file_dir.c_str() );
 
 	// find directives, then open and print listed files
 	std::string matched;
