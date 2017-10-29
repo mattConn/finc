@@ -21,7 +21,7 @@ Note that quotation marks aren't needed around the name of the file to be includ
 
 finc is licensed under GPL-3.0.
 <https://www.gnu.org/licenses/gpl-3.0.en.html>  
-finc homepage: <http://git.mattconn.io/finc.git/>
+finc homepage: <http://mattconn.io/finc>
 
 ## Limitations
 finc currently can only process one file (containing any number of directives) at a time, and can only send output to stdout.  
