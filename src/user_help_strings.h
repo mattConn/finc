@@ -14,4 +14,4 @@ Note that quotation marks aren't needed around the name of the file to be includ
 \n\
 finc was written by Matthew Connelly, 2017.\n\
 finc is licensed under GPL-3.0. <https://www.gnu.org/licenses/gpl-3.0.en.html>\n\
-finc homepage: <http://git.mattconn.io/finc.git/>";
+finc homepage: <http://mattconn.io/finc>";
