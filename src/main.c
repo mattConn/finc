@@ -15,7 +15,7 @@
 int main(int argc, char *argv[])
 {
 
-	std::string directive = "##include";
+	std::string directive = "#include";
 	std::string file_str, file_dir, target_file, include_file_contents;
 	
 	if( !arg_validation(argc, argv[1]) )
@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 	for(int i = 0; i < file_str.size()-1; i++)
 	{
 		// if possible directive
-		if(file_str[i] == '#' && file_str[i+1] == '#' && file_str[i+2] == 'i')
+		if(file_str[i] == '#' && file_str[i+1] == 'i' && file_str[i+2] == 'n')
 		{
 			// confirm directive
 			int j = i;
