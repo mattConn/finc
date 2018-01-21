@@ -15,9 +15,9 @@
 int main(int argc, char *argv[])
 {
 
-	std::string directive = "#include";
+	std::string directive = argc > 2 ? argv[2] : "#include"; // if no directive is specified by user, default to C directive
 	std::string file_str, file_dir, target_file, include_file_contents;
-	
+
 	if( !arg_validation(argc, argv[1]) )
 		return 1;
 
