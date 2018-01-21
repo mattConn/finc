@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 	for(int i = 0; i < file_str.size()-1; i++)
 	{
 		// if possible directive
-		if(file_str[i] == '#' && file_str[i+1] == 'i' && file_str[i+2] == 'n')
+		if(file_str[i] == directive[0] && file_str[i+1] == directive[1] && file_str[i+2] == directive[2])
 		{
 			// confirm directive
 			int j = i;
